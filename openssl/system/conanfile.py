@@ -17,8 +17,14 @@ class SysConfigOpenSSLConan(ConanFile):
         self.info.clear()
 
     def system_requirements(self):
+        apk = package_manager.Apk(self)
+        apk.install(["openssl-dev"], check=True)
+
         apt = package_manager.Apt(self)
         apt.install(["libssl-dev"], check=True)
+
+        dnf = package_manager.Dnf(self)
+        dnf.install(["openssl-devel"], check=True)
 
         pacman = package_manager.PacMan(self)
         pacman.install(["openssl"], check=True)
