@@ -8,3 +8,6 @@ sources:
   2.2.3:
     sha256: 4da20c2c33e7488703802eafd7f2e6c92dd0f324e887711e1e11e9b9d3dd3daa
     url: https://github.com/ValveSoftware/openvr/archive/refs/tags/v2.2.3.tar.gz
+  2.5.1:
+    sha256: 54f654fce001682d8ac608f544a6c41e03a672b005c1deca3579fa36480a537c
+    url: https://github.com/ValveSoftware/openvr/archive/refs/tags/v2.5.1.tar.gz
