@@ -9,6 +9,9 @@ class SysConfigOpenSSLConan(ConanFile):
     description = "cross-platform virtual conan package for the OpenSSL support"
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
+    options = {
+        "no_des": [True, False],
+    }
 
     def layout(self):
         pass
