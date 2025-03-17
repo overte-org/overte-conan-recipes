@@ -52,9 +52,13 @@ class libnodeConan(ConanFile):
     def generate(self):
         if self.settings.os == "Windows":
             toolset = msvs_toolset(self)
-            msvs_version = {"192": "2019", "193": "2022"}.get(
+            # Match MSVC version to Visual Studio version.
+            msvs_version = {"192": "2019", "193": "2022", "194": "2022"}.get(
                 str(self.settings.compiler.version)
             )
+            if msvs_version == None:
+                raise KeyError(f"Unknown Visual Studio version for MSVC {str(self.settings.compiler.version)}! "
+                               f"Please add it to the conanfile.")
             node_build_env = Environment()
             node_build_env.define("GYP_MSVS_VERSION", msvs_version)
             node_build_env.define("PLATFORM_TOOLSET", toolset)
