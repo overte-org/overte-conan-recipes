@@ -4,7 +4,7 @@ import os
 
 
 class WebRTCConan(ConanFile):
-    name = "webrtc"
+    name = "webrtc-prebuild"
     version = "2021.01.05"
     author = "Edgar (Edgar@AnotherFoxGuy.com)"
     settings = "os", "arch"
@@ -25,7 +25,7 @@ class WebRTCConan(ConanFile):
         copy(
             self,
             "*",
-            os.path.join(self.source_folder, "include"),
+            os.path.join(self.source_folder, "include/webrtc"),
             os.path.join(self.package_folder, "include"),
         )
         copy(
