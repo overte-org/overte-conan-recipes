@@ -5,6 +5,7 @@ from conan.tools.files import get, collect_libs
 from conan.tools.env import VirtualBuildEnv
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.meson import Meson, MesonToolchain
+from conan.tools.scm import Version
 
 class WAPConan(ConanFile):
     name = "webrtc-audio-processing"
@@ -48,3 +49,5 @@ class WAPConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)
+        if Version(self.version).in_range(">=2.0 <3"):
+            self.cpp_info.includedirs = ['include/webrtc-audio-processing-2']
