@@ -46,7 +46,7 @@ class QtSystemConan(ConanFile):
                 "qml-module-qt-labs-settings",
                 "qml-module-qtquick-dialogs",
                 "qml-module-qtwebengine",
-            ]
+            ], update=True, check=True
         )
 
     def package_info(self):
