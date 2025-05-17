@@ -5,7 +5,7 @@ Some of these may be modified recipes from Conan Center, while others are not av
 ## Build a package
 To build a package manually run a command like the following:
 ```bash
-conan create libnode/all/conanfile.py --version 18.20.6
+conan create libnode/all/conanfile.py --version 18.20.6 --user overte --channel experimental
 ```
 
 ## Upload a package
