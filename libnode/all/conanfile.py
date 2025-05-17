@@ -1,6 +1,6 @@
 import os
 from conan import ConanFile
-from conan.tools.files import get, copy, collect_libs, rename
+from conan.tools.files import get, copy, collect_libs, rename, apply_conandata_patches, export_conandata_patches
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.env import Environment, VirtualBuildEnv
 from conan.tools.microsoft import (
@@ -46,8 +46,14 @@ class libnodeConan(ConanFile):
         self.requires("openssl/1.1.1w")
         self.requires("zlib/[>1.0 <1.4]")
 
+    def export_sources(self):
+        # *Copy* patches into source.
+        export_conandata_patches(self)
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        # Apply previously copied patches.
+        apply_conandata_patches(self)
 
     def generate(self):
         if self.settings.os == "Windows":
