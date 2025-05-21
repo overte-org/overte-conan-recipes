@@ -110,7 +110,8 @@ class libnodeConan(ConanFile):
         args += self.__add_shared("openssl", "openssl")
         args += self.__add_shared("zlib", "zlib")
 
-        args.append("" if self.settings.build_type == "Release" else "--debug")
+        # Setting --debug on RelWithDebInfo causes missing includes in base64 and uvwasi.
+        args.append("--debug" if self.settings.build_type == "Debug" else "")
         if self.settings.arch == "armv8":
             args.append("--dest-cpu=arm64")
         else:
