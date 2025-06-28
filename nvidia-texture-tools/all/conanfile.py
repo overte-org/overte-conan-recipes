@@ -1,6 +1,6 @@
 import os
 from conan import ConanFile
-from conan.tools.files import get, collect_libs
+from conan.tools.files import get, collect_libs, export_conandata_patches, apply_conandata_patches
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 
 class NTTConan(ConanFile):
@@ -13,8 +13,12 @@ class NTTConan(ConanFile):
     def layout(self):
         cmake_layout(self)
 
+    def export_sources(self):
+        export_conandata_patches(self)
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+        apply_conandata_patches(self)
 
     def generate(self):
         tc = CMakeToolchain(self)
