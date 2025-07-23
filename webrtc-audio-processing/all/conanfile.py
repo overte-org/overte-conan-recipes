@@ -6,6 +6,7 @@ from conan.tools.env import VirtualBuildEnv
 from conan.tools.gnu import PkgConfigDeps
 from conan.tools.meson import Meson, MesonToolchain
 from conan.tools.scm import Version
+from conan.tools.build import check_min_cppstd
 
 class WAPConan(ConanFile):
     name = "webrtc-audio-processing"
@@ -17,6 +18,10 @@ class WAPConan(ConanFile):
     def layout(self):
         basic_layout(self, src_folder="src")
 
+    def validate(self):
+        if self.settings.compiler == "msvc":
+            check_min_cppstd(self, 20)
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
@@ -24,8 +29,6 @@ class WAPConan(ConanFile):
         env = VirtualBuildEnv(self)
         env.generate()
         tc = MesonToolchain(self)
-        if self.settings.os == "Windows":
-            tc.project_options["cpp_std"] = "c++20" # Build fails otherwise on windows
         tc.generate()
         deps = PkgConfigDeps(self)
         deps.generate()
