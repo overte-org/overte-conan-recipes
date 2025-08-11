@@ -501,8 +501,13 @@ class QtConan(ConanFile):
 
     def source(self):
         git = Git(self, folder="qt5")
-        git.fetch_commit(url=self.conan_data["sources"][self.version]["url"], commit=self.conan_data["sources"][self.version]["commit"])
-        git.run("submodule update --init --recursive")
+        os.mkdir("qt5")
+        # Since we patch newlines later, we require the system to use the same newline characters we expect.
+        # On Windows, we have Git convert newlines to the Windows specific characters, which is the default set by Git's Windows installer.
+        # Later, we match against Python's `os.linesep` to match the operating specific newlines.
+        git.run("-c core.autocrlf=true clone " + self.conan_data["sources"][self.version]["url"] + " .")
+        git.run("-c core.autocrlf=true checkout " + self.conan_data["sources"][self.version]["commit"])
+        git.run("-c core.autocrlf=true submodule update --init --recursive")
 
         apply_conandata_patches(self)
         for f in ["renderer", os.path.join("renderer", "core"), os.path.join("renderer", "platform")]:
