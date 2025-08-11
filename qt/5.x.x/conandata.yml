@@ -5,6 +5,11 @@ sources:
 
 patches:
   "5.15.17-2025.06.07":
-    #~ - "base_path": "qt5/qtbase"
-      #~ "patch_file": "patches/aa2a39dea5.diff"
+    - "base_path": "qt5/qtbase"
+      "patch_file": "patches/Dont_fail_on_mixing_debug_and_release.patch"
+      # Every Overte plugins fails to load due to:
+      # `[hifi.plugins] Plugin hifiOsc.dll failed to load:`
+      # `[hifi.plugins] The plugin 'C:/Users/jug00/CLionProjects/overte/build/interface/Release/plugins/hifiOsc.dll' uses incompatible Qt library. (Cannot mix debug and release libraries.)`
+      # It seems to think that our release plugins are built as debug.
+      # Debug builds don't suffer from this issue.
 
