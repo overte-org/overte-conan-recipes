@@ -536,6 +536,8 @@ class QtConan(ConanFile):
             vre = VirtualRunEnv(self)
             vre.generate(scope="build")
         env = Environment()
+        # Tell Python to assume UTF-8 encoding to work around character encoding issues while building Qt WebEngine on Polish locale on Windows.
+        env.define("PYTHONUTF8", "1")
         env.define("MAKEFLAGS", f"j{build_jobs(self)}")
         env.define("ANGLE_DIR", self.angle_path)
         env.prepend_path("PKG_CONFIG_PATH", self.generators_folder)
