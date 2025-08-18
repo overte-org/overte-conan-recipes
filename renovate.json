@@ -6,6 +6,10 @@
     "conan": {
         "enabled": true
     },
+    "includePaths": [
+        "qt/**/conanfile.py",
+        "libnode/**conanfile.py"
+    ],
     "packageRules": [
         {
             "matchDatasources": [
