@@ -10,6 +10,11 @@
         "qt/**/conanfile.py",
         "libnode/**conanfile.py"
     ],
+    "ignoreDeps": [
+        "io",
+        "com",
+        "conan-io"
+    ],
     "packageRules": [
         {
             "matchDatasources": [
