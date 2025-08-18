@@ -1,0 +1,17 @@
+﻿diff --git a/src/corelib/plugin/qlibrary.cpp b/src/corelib/plugin/qlibrary.cpp
+index 45b5a3fe27f..e905fc25ff8 100644
+--- a/src/corelib/plugin/qlibrary.cpp
++++ b/src/corelib/plugin/qlibrary.cpp
+@@ -819,12 +819,6 @@ void QLibraryPrivate::updatePluginState()
+                  QString::number((qt_version & 0xff00) >> 8),
+                  QString::number(qt_version & 0xff),
+                  debug ? QLatin1String("debug") : QLatin1String("release"));
+-#ifndef QT_NO_DEBUG_PLUGIN_CHECK
+-    } else if(debug != QLIBRARY_AS_DEBUG) {
+-        //don't issue a qWarning since we will hopefully find a non-debug? --Sam
+-        errorString = QLibrary::tr("The plugin '%1' uses incompatible Qt library."
+-                 " (Cannot mix debug and release libraries.)").arg(fileName);
+-#endif
+     } else {
+         pluginState = IsAPlugin;
+     }

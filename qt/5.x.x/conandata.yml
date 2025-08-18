@@ -1,34 +1,19 @@
 sources:
-  "5.15.16-2025.01.23":
+  "5.15.17-2025.06.07":
     url: "https://invent.kde.org/qt/qt/qt5.git"
-    commit: "d76aaaf8ff7277f2640fb785605d267cef891ddb"
+    commit: "0825fcb14dc8171eb3674d8df2337a2e4593f025"
 
 patches:
-  "5.15.16-2025.01.23":
-    #~ - "base_path": "qt5/qtbase"
-      #~ "patch_file": "patches/aa2a39dea5.diff"
-    #~ - "base_path": "qt5/qtwebengine"
-      #~ "patch_file": "patches/c72097e.diff"
-    #~ - "base_path": "qt5/qttools"
-      #~ "patch_file": "patches/fix-macdeployqt.diff"
-    #~ - "base_path": "qt5/qtwebengine/src/3rdparty"
-      #~ "patch_file": "patches/0001-Find-fontconfig-using-pkg-config.patch"
-    #~ - "base_path": "qt5/qtbase"
-      #~ "patch_file": "patches/android-openssl.diff"
-    #~ - "base_path": "qt5/qtwebengine"
-      #~ "patch_description": "qtwebengine don't use rpath-link on macOS"
-      #~ "patch_file": "patches/5.15.14-macos-qtwebengine-rpath-link.patch"
-    #~ - "base_path": "qt5/qtlocation"
-      #~ "patch_description": "qtlocation missing utility header"
-      #~ "patch_file": "patches/5.15.14-macos-qtlocation-utility-header.patch"
-    #~ - "base_path": "qt5/qtwebengine/src/3rdparty"
-      #~ "patch_description": "qtwebengine fix missing headers"
-      #~ "patch_file": "patches/5.15.14-qtwebengine-missing-deps.patch"
-    #~ - "base_path": "qt5/qtwebengine/src/3rdparty"
-      #~ "patch_description": "macos fix chromium build in newer macos SDKs"
-      #~ "patch_file": "patches/5.15.14-macos-chromium-newer-sdks.patch"
-    #~ - "base_path": "qt5/qtwebengine"
-      #~ "patch_description": "Fix build error with binutils >= 2.41"
-      #~ "patch_file": "patches/ffmpeg-x86-optimization.patch"
-      #~ "patch_source": "https://packages.ubuntu.com/source/focal-updates/qtwebengine-opensource-src"
-      #~ "patch_type": "portability"
+  "5.15.17-2025.06.07":
+    - "base_path": "qt5/qtbase"
+      "patch_file": "patches/Dont_fail_on_mixing_debug_and_release.patch"
+      # Every Overte plugins fails to load due to:
+      # `[hifi.plugins] Plugin hifiOsc.dll failed to load:`
+      # `[hifi.plugins] The plugin 'C:/Users/jug00/CLionProjects/overte/build/interface/Release/plugins/hifiOsc.dll' uses incompatible Qt library. (Cannot mix debug and release libraries.)`
+      # It seems to think that our release plugins are built as debug.
+      # Debug builds don't suffer from this issue.
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/Remove_visitedlink_writer_assert.patch"
+      # Qt WebEngine debug builds assert immediately after starting Overte.
+      # See: https://issues.chromium.org/issues/41406037 and https://bugreports.qt.io/browse/QTBUG-59244?focusedCommentId=363253
+      # Error message: `[1836:22832:0813/095026.995:FATAL:visitedlink_writer.h(496)] Check failed: used_count == used_items_ (10 vs. 9)`

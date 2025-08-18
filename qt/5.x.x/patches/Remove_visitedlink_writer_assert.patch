@@ -1,0 +1,78 @@
+﻿diff --git a/chromium/components/visitedlink/browser/visitedlink_writer.cc b/chromium/components/visitedlink/browser/visitedlink_writer.cc
+index aea3b152c8c..4280f2f5dc8 100644
+--- a/chromium/components/visitedlink/browser/visitedlink_writer.cc
++++ b/chromium/components/visitedlink/browser/visitedlink_writer.cc
+@@ -275,9 +275,6 @@ bool VisitedLinkWriter::Init() {
+   if (mapped_table_memory_.region.IsValid())
+     listener_->NewTable(&mapped_table_memory_.region);
+ 
+-#ifndef NDEBUG
+-  DebugValidate();
+-#endif
+ 
+   if (persist_to_disk_) {
+     if (InitFromFile())
+@@ -713,9 +710,6 @@ void VisitedLinkWriter::OnTableLoadComplete(
+   table_length_ = load_from_file_result->num_entries;
+   used_items_ = load_from_file_result->used_count;
+ 
+-#ifndef NDEBUG
+-  DebugValidate();
+-#endif
+ 
+   // Send an update notification to all child processes.
+   listener_->NewTable(&mapped_table_memory_.region);
+@@ -888,9 +882,6 @@ bool VisitedLinkWriter::BeginReplaceURLTable(int32_t num_entries) {
+     return false;
+   }
+ 
+-#ifndef NDEBUG
+-  DebugValidate();
+-#endif
+ 
+   return true;
+ }
+@@ -933,9 +924,6 @@ void VisitedLinkWriter::ResizeTable(int32_t new_size) {
+          mapped_table_memory_.mapping.IsValid());
+   shared_memory_serial_++;
+ 
+-#ifndef NDEBUG
+-  DebugValidate();
+-#endif
+ 
+   auto old_hash_table_mapping = std::move(mapped_table_memory_.mapping);
+   int32_t old_table_length = table_length_;
+@@ -960,9 +948,6 @@ void VisitedLinkWriter::ResizeTable(int32_t new_size) {
+   // table.
+   listener_->NewTable(&mapped_table_memory_.region);
+ 
+-#ifndef NDEBUG
+-  DebugValidate();
+-#endif
+ 
+   // The new table needs to be written to disk.
+   if (persist_to_disk_)
+diff --git a/chromium/components/visitedlink/browser/visitedlink_writer.h b/chromium/components/visitedlink/browser/visitedlink_writer.h
+index d56323f17ec..7db54aabfe9 100644
+--- a/chromium/components/visitedlink/browser/visitedlink_writer.h
++++ b/chromium/components/visitedlink/browser/visitedlink_writer.h
+@@ -483,19 +483,6 @@ class VisitedLinkWriter : public VisitedLinkCommon {
+   DISALLOW_COPY_AND_ASSIGN(VisitedLinkWriter);
+ };
+ 
+-// NOTE: These methods are defined inline here, so we can share the compilation
+-//       of visitedlink_writer.cc between the browser and the unit/perf tests.
+-
+-#if defined(UNIT_TEST) || defined(PERF_TEST) || !defined(NDEBUG)
+-inline void VisitedLinkWriter::DebugValidate() {
+-  int32_t used_count = 0;
+-  for (int32_t i = 0; i < table_length_; i++) {
+-    if (hash_table_[i])
+-      used_count++;
+-  }
+-  DCHECK_EQ(used_count, used_items_);
+-}
+-#endif
+ 
+ }  // namespace visitedlink
+ 
