@@ -1440,6 +1440,7 @@ Prefix = ..""")
                 _create_plugin("AudioCaptureServicePlugin", "qtmedia_audioengine", "mediaservice", [])
                 _create_plugin("DSServicePlugin", "dsengine", "mediaservice", [])
                 _create_plugin("QWindowsAudioPlugin", "qtaudio_windows", "audio", [])
+                _create_plugin("QWasapiPlugin", "qtaudio_wasapi", "audio", [])
             if self.settings.os == "Macos":
                 _create_plugin("AudioCaptureServicePlugin", "qtmedia_audioengine", "mediaservice", [])
                 _create_plugin("AVFMediaPlayerServicePlugin", "qavfmediaplayer", "mediaservice", [])
