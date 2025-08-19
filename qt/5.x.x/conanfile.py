@@ -389,7 +389,7 @@ class QtConan(ConanFile):
             raise ConanInvalidConfiguration("sqlite3 option enable_column_metadata must be enabled for qt")
 
     def requirements(self):
-        self.requires("zlib/[>=1.2.11 <2]")
+        self.requires("zlib/1.2.13")
         if self.options.openssl:
             self.requires("openssl/[>=1.1 <4]")
         if self.options.with_pcre2:
@@ -418,9 +418,9 @@ class QtConan(ConanFile):
             else:
                 self.requires("libjpeg/9e")
         if self.options.get_safe("with_libpng", False) and not self.options.multiconfiguration:
-            self.requires("libpng/[>=1.6 <2]")
+            self.requires("libpng/1.6]")
         if self.options.with_sqlite3 and not self.options.multiconfiguration:
-            self.requires("sqlite3/[>=3.45.0 <4]")
+            self.requires("sqlite3/3.45.0")
         if self.options.get_safe("with_mysql", False):
             self.requires("libmysqlclient/8.1.0")
         if self.options.with_pq:

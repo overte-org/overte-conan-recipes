@@ -1,0 +1,29 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended"
+    ],
+    "conan": {
+        "enabled": true
+    },
+    "includePaths": [
+        "qt/**/conanfile.py",
+        "libnode/**conanfile.py"
+    ],
+    "ignoreDeps": [
+        "io",
+        "com",
+        "conan-io"
+    ],
+    "packageRules": [
+        {
+            "matchDatasources": [
+                "conan"
+            ],
+            "defaultRegistryUrls": [
+                "https://artifactory.overte.org/artifactory/api/conan/overte",
+                "https://center.conan.io"
+            ]
+        }
+    ]
+}
