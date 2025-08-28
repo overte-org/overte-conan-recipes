@@ -920,6 +920,10 @@ Prefix = ..""")
         for fl in glob.glob(os.path.join(self.package_folder, "lib", "*Qt5Bootstrap*")):
             os.remove(fl)
 
+        # Copy `config.summary` for debugging purposes.
+        # Qt might fail to configure something that we expect and continue regardless.
+        copy(self, "config.summary", os.path.join(self.source_folder, "build_folder/"), self.package_folder)
+
         for m in os.listdir(os.path.join(self.package_folder, "lib", "cmake")):
             module = os.path.join(self.package_folder, "lib", "cmake", m, f"{m}Macros.cmake")
             if not os.path.isfile(module):
