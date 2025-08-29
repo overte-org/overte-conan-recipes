@@ -58,9 +58,13 @@ class libnodeConan(ConanFile):
     def configure(self):
         # All "shared" dependencies need to be linked statically, otherwise bytecode_builtins_list_generator fails to find them.
         self.options["brotli"].shared = False
+        self.options["brotli"].visible = False
         self.options["llhttp"].shared = False
+        self.options["llhttp"].visible = False
         self.options["openssl"].shared = False
+        self.options["openssl"].visible = False
         self.options["zlib"].shared = False
+        self.options["zlib"].visible = False
 
     def export_sources(self):
         # *Copy* patches into source.
