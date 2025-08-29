@@ -20,6 +20,7 @@ class libnodeConan(ConanFile):
         "Node.js is an open-source, cross-platform JavaScript runtime environment"
     )
     settings = "os", "compiler", "build_type", "arch"
+    package_type = "shared-library"
 
     @property
     def _min_cppstd(self):
