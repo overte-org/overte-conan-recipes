@@ -55,6 +55,13 @@ class libnodeConan(ConanFile):
         self.requires("openssl/1.1.1w")
         self.requires("zlib/[>=1.3 <1.4]")
 
+    def configure(self):
+        # All "shared" dependencies need to be linked statically, otherwise bytecode_builtins_list_generator fails to find them.
+        self.options["brotli"].shared = False
+        self.options["llhttp"].shared = False
+        self.options["openssl"].shared = False
+        self.options["zlib"].shared = False
+
     def export_sources(self):
         # *Copy* patches into source.
         export_conandata_patches(self)
