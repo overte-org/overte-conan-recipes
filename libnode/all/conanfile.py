@@ -219,7 +219,7 @@ class libnodeConan(ConanFile):
             )
             copy(
                 self,
-                "libnode.so*",
+                "libnode.*",
                 os.path.join(self.source_folder, "out", str(self.settings.build_type)),
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False
