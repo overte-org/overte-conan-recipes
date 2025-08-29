@@ -48,23 +48,12 @@ class libnodeConan(ConanFile):
         self.tool_requires("nasm/2.15.05")
 
     def requirements(self):
-        self.requires("brotli/[>1.0 <1.2]")
-        self.requires("llhttp/[^9.3]")
+        self.requires("brotli/[>1.0 <1.2]", visible=False, options={"shared": "False"})
+        self.requires("llhttp/[^9.3]", visible=False, options={"shared": "False"})
         # self.requires("libnghttp2/[>1.50 <1.60]")
         # self.requires("libuv/[>1.40 <1.50]")
-        self.requires("openssl/1.1.1w")
-        self.requires("zlib/[>=1.3 <1.4]")
-
-    def configure(self):
-        # All "shared" dependencies need to be linked statically, otherwise bytecode_builtins_list_generator fails to find them.
-        self.options["brotli"].shared = False
-        self.options["brotli"].visible = False
-        self.options["llhttp"].shared = False
-        self.options["llhttp"].visible = False
-        self.options["openssl"].shared = False
-        self.options["openssl"].visible = False
-        self.options["zlib"].shared = False
-        self.options["zlib"].visible = False
+        self.requires("openssl/1.1.1w", visible=False, options={"shared": "False"})
+        self.requires("zlib/[>=1.3 <1.4]", visible=False, options={"shared": "False"})
 
     def export_sources(self):
         # *Copy* patches into source.
