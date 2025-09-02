@@ -34,7 +34,7 @@ class WAPConan(ConanFile):
         deps.generate()
 
     def requirements(self):
-        self.requires("abseil/20250127.0")
+        self.requires("abseil/20250512.1")
 
     def build_requirements(self):
         self.tool_requires("meson/1.6.0")
