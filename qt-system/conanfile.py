@@ -33,6 +33,8 @@ class QtSystemConan(ConanFile):
                 "qtwebengine5-dev",
                 "qtwebengine5-dev-tools",
                 "qtmultimedia5-dev",
+                "libqt5multimedia5-plugins", # Support for audio backends like PulseAudio
+                "qt5-image-formats-plugins", # Support for WebP textures among others
                 "libqt5opengl5-dev",
                 "libqt5webchannel5-dev",
                 "libqt5websockets5-dev",
