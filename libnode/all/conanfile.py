@@ -48,12 +48,21 @@ class libnodeConan(ConanFile):
         self.tool_requires("nasm/2.15.05")
 
     def requirements(self):
-        self.requires("brotli/[>1.0 <1.2]", visible=False, options={"shared": "False"})
-        self.requires("llhttp/[^9.3]", visible=False, options={"shared": "False"})
-        # self.requires("libnghttp2/[>1.50 <1.60]")
-        # self.requires("libuv/[>1.40 <1.50]")
-        self.requires("openssl/1.1.1w", visible=False, options={"shared": "False"})
-        self.requires("zlib/[>=1.3 <1.4]", visible=False, options={"shared": "False"})
+        # Link statically on macOS to avoid bytecode_builtins_list_generator not being able to find its dependencies.
+        if self.settings.os == "Macos":
+            self.requires("brotli/[>1.0 <1.2]", visible=False, options={"shared": "False"})
+            self.requires("llhttp/[^9.3]", visible=False, options={"shared": "False"})
+            # self.requires("libnghttp2/[>1.50 <1.60]")
+            # self.requires("libuv/[>1.40 <1.50]")
+            self.requires("openssl/1.1.1w", visible=False, options={"shared": "False"})
+            self.requires("zlib/[>=1.3 <1.4]", visible=False, options={"shared": "False"})
+        else:
+            self.requires("brotli/[>1.0 <1.2]")
+            self.requires("llhttp/[^9.3]")
+            # self.requires("libnghttp2/[>1.50 <1.60]")
+            # self.requires("libuv/[>1.40 <1.50]")
+            self.requires("openssl/1.1.1w")
+            self.requires("zlib/[>=1.3 <1.4]")
 
     def export_sources(self):
         # *Copy* patches into source.
