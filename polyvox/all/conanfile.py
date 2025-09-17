@@ -6,7 +6,7 @@ from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 class PolyvoxConan(ConanFile):
     name = "polyvox"
     license = "MIT"
-    url = "https://git.anotherfoxguy.com/AnotherFoxGuy/polyvox/"
+    url = "https://github.com/overte-org/polyvox/"
     description = "The voxel management and manipulation library"
     settings = "os", "compiler", "build_type", "arch"
 
