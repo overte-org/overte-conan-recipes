@@ -1,4 +1,7 @@
 sources:
+  "2025.09.1":
+    url: "https://github.com/overte-org/polyvox/archive/refs/tags/v2025.09.1.tar.gz"
+    sha256: "d0bc28f4918f1fbdc21d41e7fbffbe32b6778a8bf918fb84c56cd0ee78943d3c"
   "2016.11":
     url: "https://git.anotherfoxguy.com/AnotherFoxGuy/polyvox/archive/c986c9f0b1189737a182fbc8d4f4696436f972c1.tar.gz"
     sha256: "36878450cb36d2d14609027b0c8eb118f7e628cfa78152b86ae022031cc5b251"
