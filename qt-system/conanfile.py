@@ -35,6 +35,7 @@ class QtSystemConan(ConanFile):
                 "qtmultimedia5-dev",
                 "libqt5multimedia5-plugins", # Support for audio backends like PulseAudio
                 "qt5-image-formats-plugins", # Support for WebP textures among others
+                "fcitx-frontend-qt5", # Support for Fcitx IME (Japanese and other input). Required is `libfcitxplatforminputcontextplugin.so`
                 "libqt5opengl5-dev",
                 "libqt5webchannel5-dev",
                 "libqt5websockets5-dev",
