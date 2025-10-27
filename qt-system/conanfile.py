@@ -35,7 +35,7 @@ class QtSystemConan(ConanFile):
                 "qtmultimedia5-dev",
                 "libqt5multimedia5-plugins", # Support for audio backends like PulseAudio
                 "qt5-image-formats-plugins", # Support for WebP textures among others
-                "fcitx-frontend-qt5", # Support for Fcitx IME (Japanese and other input). Required is `libfcitxplatforminputcontextplugin.so`
+                "fcitx5-frontend-qt5", # Support for Fcitx IME (Japanese and other input). Required is `libfcitxplatforminputcontextplugin.so`
                 "libqt5opengl5-dev",
                 "libqt5webchannel5-dev",
                 "libqt5websockets5-dev",
@@ -50,6 +50,9 @@ class QtSystemConan(ConanFile):
                 "qml-module-qtquick-dialogs",
                 "qml-module-qtwebengine",
             ], update=True, check=True
+        )
+        apt.install_substitutes(
+            ["fcitx5-frontend-qt5"], ["fcitx-frontend-qt5"]  # On Debian Forky, both Fcitx5 and Fcitx4 are availalbe, while Ubuntu 22.04 only has Fcitx4
         )
 
     def package_info(self):
