@@ -50,15 +50,15 @@ class libnodeConan(ConanFile):
     def requirements(self):
         # Link statically on macOS to avoid bytecode_builtins_list_generator not being able to find its dependencies.
         if self.settings.os == "Macos":
-            self.requires("brotli/[>1.0 <1.2]", visible=False, options={"shared": "False"})
-            self.requires("llhttp/[^9.3]", visible=False, options={"shared": "False"})
+            # self.requires("brotli/[>=1.2 <1.3]", visible=False, options={"shared": "False"})
+            # self.requires("llhttp/[^9.3]", visible=False, options={"shared": "False"})
             # self.requires("libnghttp2/[>1.50 <1.60]")
             # self.requires("libuv/[>1.40 <1.50]")
             self.requires("openssl/1.1.1w", visible=False, options={"shared": "False"})
             self.requires("zlib/[>=1.3 <1.4]", visible=False, options={"shared": "False"})
         else:
-            self.requires("brotli/[>1.0 <1.2]")
-            self.requires("llhttp/[^9.3]")
+            # self.requires("brotli/[>=1.2 <1.3]")
+            # self.requires("llhttp/[^9.3]")
             # self.requires("libnghttp2/[>1.50 <1.60]")
             # self.requires("libuv/[>1.40 <1.50]")
             self.requires("openssl/1.1.1w")
@@ -104,7 +104,7 @@ class libnodeConan(ConanFile):
             node_build_env.define("PKG_CONFIG_PATH", self.build_folder)
             envvars = node_build_env.vars(self)
             envvars.save_script("node_build_env")
-            rename(self, "libllhttp.pc", "http_parser.pc")
+            # rename(self, "libllhttp.pc", "http_parser.pc")
 
     def build(self):
         args = [
@@ -123,8 +123,8 @@ class libnodeConan(ConanFile):
         # args += self.__add_shared("", "ngtcp2")
         # args += self.__add_shared("libnghttp2", "nghttp2")
         # args += self.__add_shared("libuv", "libuv")
-        args += self.__add_shared("brotli", "brotli")
-        args += self.__add_shared("llhttp", "http-parser")
+        # args += self.__add_shared("brotli", "brotli")
+        # args += self.__add_shared("llhttp", "http-parser")
         args += self.__add_shared("openssl", "openssl")
         args += self.__add_shared("zlib", "zlib")
 
