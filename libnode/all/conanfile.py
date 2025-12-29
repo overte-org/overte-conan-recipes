@@ -57,6 +57,8 @@ class libnodeConan(ConanFile):
             self.requires("openssl/1.1.1w", visible=False, options={"shared": "False"})
             self.requires("zlib/[>=1.3 <1.4]", visible=False, options={"shared": "False"})
         else:
+            # We don't know how strict Conan Center is about de-vendoring dependencies,
+            # so we may need to switch to using the currently commented out dependencies in the future.
             # self.requires("brotli/[>=1.2 <1.3]")
             # self.requires("llhttp/[^9.3]")
             # self.requires("libnghttp2/[>1.50 <1.60]")
@@ -104,6 +106,7 @@ class libnodeConan(ConanFile):
             node_build_env.define("PKG_CONFIG_PATH", self.build_folder)
             envvars = node_build_env.vars(self)
             envvars.save_script("node_build_env")
+            # Uncomment when using de-vendored llhttp.
             # rename(self, "libllhttp.pc", "http_parser.pc")
 
     def build(self):
@@ -121,6 +124,7 @@ class libnodeConan(ConanFile):
         # args += self.__add_shared("", "cares")
         # args += self.__add_shared("", "nghttp3")
         # args += self.__add_shared("", "ngtcp2")
+        # Uncomment when using the relevant de-vendored dependencies.
         # args += self.__add_shared("libnghttp2", "nghttp2")
         # args += self.__add_shared("libuv", "libuv")
         # args += self.__add_shared("brotli", "brotli")
