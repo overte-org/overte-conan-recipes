@@ -1,17 +1,13 @@
 sources:
-  18.17.1:
-    sha256: 1cc1670bc183eaf9e0afe0258391695d1d6ae1be02ba4c26e0218cf5f19b96f7
-    url: https://github.com/nodejs/node/archive/refs/tags/v18.17.1.tar.gz
-  18.20.6:
-    sha256: 84b563933f5f38738ec8ea4050d1672f9d0fce8336735457156c39f3fbe2ff1f
-    url: https://github.com/nodejs/node/archive/refs/tags/v18.20.6.tar.gz
-  18.20.8:
-    sha256: 1a4f165720c3377d0cf7b4813cecffd8fb7739fb314359c56b831142df6e5975
-    url: https://github.com/nodejs/node/archive/refs/tags/v18.20.8.tar.gz
-  21.6.2:
-    sha256: 24a2de72478e1aa60bc830092e8f331f86aedd41e7e3f98fcb66bf5f02bdb578
-    url: https://github.com/nodejs/node/archive/refs/tags/v21.6.2.tar.gz
+  22.21.1:
+    sha256: 4b5ad1795fb6adfb1862df9a626bdca85185866fcd7d0313e87a347eec293fd8
+    url: https://github.com/nodejs/node/archive/refs/tags/v22.21.1.tar.gz
 patches:
-  18.20.8:
-    - "patch_file": "patches/node-cstdint.patch"
-      "patch_description": "Fix Node build on newer compilers; add missing header"
+# Example patch:
+  18.20.8:  # version as specified in `sources` above.
+    - "patch_file": "patches/example.patch"  # Relative path to patch file.
+
+# Conan Center prefers patches to:
+# - have relatively specific names. E.g. `fix_v8_on_VS2022_v17.14_6.8.x.diff`.
+# - have all the relevant information (commit message) inside of the patch itself, instead of using additional fields such as `patch_description`.
+# - have all email addresses removed.

@@ -9,6 +9,8 @@ from conan.tools.microsoft import (
     MSBuildToolchain,
     msvs_toolset,
 )
+from conan.tools.scm import Version
+from conan.tools.build import check_min_cppstd
 
 class libnodeConan(ConanFile):
     name = "libnode"
@@ -18,6 +20,13 @@ class libnodeConan(ConanFile):
         "Node.js is an open-source, cross-platform JavaScript runtime environment"
     )
     settings = "os", "compiler", "build_type", "arch"
+    package_type = "shared-library"
+
+    @property
+    def _min_cppstd(self):
+        if Version(self.version) >= "22":
+            return 20
+        return 17
 
     def __add_shared(self, pkg_name, libname):
         libs = self.dependencies[pkg_name].cpp_info.libs
@@ -39,12 +48,23 @@ class libnodeConan(ConanFile):
         self.tool_requires("nasm/2.15.05")
 
     def requirements(self):
-        self.requires("brotli/[>1.0 <1.2]")
-        self.requires("llhttp/6.1.1@overte/stable")
-        # self.requires("libnghttp2/[>1.50 <1.60]")
-        # self.requires("libuv/[>1.40 <1.50]")
-        self.requires("openssl/1.1.1w")
-        self.requires("zlib/[>1.0 <1.4]")
+        # Link statically on macOS to avoid bytecode_builtins_list_generator not being able to find its dependencies.
+        if self.settings.os == "Macos":
+            # self.requires("brotli/[>=1.2 <1.3]", visible=False, options={"shared": "False"})
+            # self.requires("llhttp/[^9.3]", visible=False, options={"shared": "False"})
+            # self.requires("libnghttp2/[>1.50 <1.60]")
+            # self.requires("libuv/[>1.40 <1.50]")
+            self.requires("openssl/1.1.1w", visible=False, options={"shared": "False"})
+            self.requires("zlib/[>=1.3 <1.4]", visible=False, options={"shared": "False"})
+        else:
+            # We don't know how strict Conan Center is about de-vendoring dependencies,
+            # so we may need to switch to using the currently commented out dependencies in the future.
+            # self.requires("brotli/[>=1.2 <1.3]")
+            # self.requires("llhttp/[^9.3]")
+            # self.requires("libnghttp2/[>1.50 <1.60]")
+            # self.requires("libuv/[>1.40 <1.50]")
+            self.requires("openssl/1.1.1w")
+            self.requires("zlib/[>=1.3 <1.4]")
 
     def export_sources(self):
         # *Copy* patches into source.
@@ -86,7 +106,8 @@ class libnodeConan(ConanFile):
             node_build_env.define("PKG_CONFIG_PATH", self.build_folder)
             envvars = node_build_env.vars(self)
             envvars.save_script("node_build_env")
-            rename(self, "libllhttp.pc", "http_parser.pc")
+            # Uncomment when using de-vendored llhttp.
+            # rename(self, "libllhttp.pc", "http_parser.pc")
 
     def build(self):
         args = [
@@ -103,10 +124,11 @@ class libnodeConan(ConanFile):
         # args += self.__add_shared("", "cares")
         # args += self.__add_shared("", "nghttp3")
         # args += self.__add_shared("", "ngtcp2")
+        # Uncomment when using the relevant de-vendored dependencies.
         # args += self.__add_shared("libnghttp2", "nghttp2")
         # args += self.__add_shared("libuv", "libuv")
-        args += self.__add_shared("brotli", "brotli")
-        args += self.__add_shared("llhttp", "http-parser")
+        # args += self.__add_shared("brotli", "brotli")
+        # args += self.__add_shared("llhttp", "http-parser")
         args += self.__add_shared("openssl", "openssl")
         args += self.__add_shared("zlib", "zlib")
 
@@ -138,7 +160,7 @@ class libnodeConan(ConanFile):
     def package(self):
         if self.settings.os == "Windows":
             self.run(
-                "set HEADERS_ONLY=1 && python ./tools/install.py install %s\\ \\"
+                "python ./tools/install.py --headers-only --is-win --dest-dir %s\\ --prefix \\ install"
                 % self.package_folder
             )
             copy(
@@ -182,7 +204,7 @@ class libnodeConan(ConanFile):
             )
         else:
             self.run(
-                "export HEADERS_ONLY=1 && python3 ./tools/install.py install %s/ /"
+                "python3 ./tools/install.py --headers-only --dest-dir %s/ --prefix / install"
                 % self.package_folder
             )
             copy(
@@ -203,7 +225,7 @@ class libnodeConan(ConanFile):
             )
             copy(
                 self,
-                "libnode.so*",
+                "libnode.*",
                 os.path.join(self.source_folder, "out", str(self.settings.build_type)),
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False
@@ -214,6 +236,10 @@ class libnodeConan(ConanFile):
         if self.settings.os == "Linux":
             # Hack to work around collect_libs() not being able to deal with .so.x.y.z files.
             # See: https://github.com/conan-io/conan/pull/17816
-            self.cpp_info.libs = ['libnode.so.108']
+            self.cpp_info.libs = ['libnode.so.127']
         else: # Windows and macOS
             self.cpp_info.libs = collect_libs(self)
+
+    def validate(self):
+        if self.settings.compiler.get_safe("cppstd"):
+            check_min_cppstd(self, self._min_cppstd)
