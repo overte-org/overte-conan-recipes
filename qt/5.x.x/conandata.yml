@@ -10,3 +10,6 @@ patches:
       # Qt WebEngine debug builds assert immediately after starting Overte.
       # See: https://issues.chromium.org/issues/41406037 and https://bugreports.qt.io/browse/QTBUG-59244?focusedCommentId=363253
       # Error message: `[1836:22832:0813/095026.995:FATAL:visitedlink_writer.h(496)] Check failed: used_count == used_items_ (10 vs. 9)`
+    - "base_path": "qt5/qtdeclarative"
+      "patch_file": "patches/Fix-error-uintptr_t-does-not-name-a-type-in-QtDeclarative.patch"
+      # Fixes building with modern versions of Clang
