@@ -801,8 +801,11 @@ class QtConan(ConanFile):
             if self.settings.arch == "armv8":
                 args.append('QMAKE_APPLE_DEVICE_ARCHS="arm64"')
         elif self.settings.os == "Android":
+            args += [f"-android-ndk {self.conf.get("tools.android:ndk_path")}"]
             args += [f"-android-ndk-platform android-{self.settings.os.api_level}"]
             args += [f"-android-abis {android_abi(self)}"]
+            args += ["-android-javac-target 8"]  # Android SDK 33 doesn't support Java 7 anymore.
+            args += ["-android-javac-source 8"]
 
         if self.settings.get_safe("compiler.libcxx") == "libstdc++":
             args += ["-D_GLIBCXX_USE_CXX11_ABI=0"]
