@@ -1,6 +1,7 @@
 import os
 from conan import ConanFile
-from conan.tools.files import get, copy, collect_libs, rename, apply_conandata_patches, export_conandata_patches
+from conan.errors import ConanException, ConanInvalidConfiguration
+from conan.tools.files import get, copy, collect_libs, rename, apply_conandata_patches, export_conandata_patches, patch
 from conan.tools.gnu import Autotools, AutotoolsToolchain, PkgConfigDeps
 from conan.tools.env import Environment, VirtualBuildEnv
 from conan.tools.microsoft import (
@@ -69,6 +70,8 @@ class libnodeConan(ConanFile):
     def export_sources(self):
         # *Copy* patches into source.
         export_conandata_patches(self)
+        # Copy Android specific patch
+        copy(self, "Android_Disable-V8_TRAP_HANDLER_SUPPORTED-to-avoid-undefined.patch", self.recipe_folder, self.export_sources_folder)
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -97,6 +100,36 @@ class libnodeConan(ConanFile):
             tc.generate()
             tc = VCVars(self)
             tc.generate()
+        elif self.settings.os == "Android":
+            # Apply Android-specific patch
+            # We apply it here instead of the source method, since the source is cached between Android and non-Android builds.
+            patch_file = os.path.join(self.source_folder, "Android_Disable-V8_TRAP_HANDLER_SUPPORTED-to-avoid-undefined.patch")
+            patch(self, base_path=self.build_folder, patch_file=patch_file)
+
+            if self.settings.arch in ("armv7", "armv7hf", "armv7s", "armv7k"):
+                arch = "arm"
+            elif self.settings.arch == "armv8":
+                arch = "arm64"
+            elif self.settings.arch == "x86":
+                arch = "x86"
+            elif self.settings.arch == "x86_64":
+                arch = "x64"
+            else:
+                raise ConanInvalidConfiguration("\033[91mError: \033[0m" + "Unknown target architecture. Consider adding to this recipe.")
+
+            tc = AutotoolsToolchain(self)
+            tc.generate()
+
+            GYP_DEFINES = "target_arch=" + arch
+            GYP_DEFINES += " v8_target_arch=" + arch
+            GYP_DEFINES += " android_target_arch=" + arch
+            # Not sure how to get the OS of Conan's build profile. We only support Linux anyway.
+            GYP_DEFINES += " host_os=" + "Linux" + " OS=android"
+            GYP_DEFINES += " android_ndk_path=" + self.conf.get("tools.android:ndk_path")
+            node_build_env = Environment()
+            node_build_env.define("GYP_DEFINES", GYP_DEFINES)
+            envvars = node_build_env.vars(self)
+            envvars.save_script("node_build_env")
         else:
             tc = AutotoolsToolchain(self)
             tc.generate()
@@ -142,6 +175,13 @@ class libnodeConan(ConanFile):
         if self.settings.os == "Linux" and self.settings.arch != "armv8":
             # node doesn't build with the gdb argument on aarch64
             args.append("--gdb")
+
+        # Based on Node's android_configure.py
+        if self.settings.os == "Android":
+            args.append("--dest-os=android")
+            if not "--shared-openssl" in args:
+                args.append("--openssl-no-asm")
+            args.append("--cross-compiling")
 
         if self.settings.os == "Windows":
             self.run(
