@@ -1,10 +1,10 @@
 sources:
-  "5.15.17-2025.06.07":
+  "5.15.18-2026.01.04":
     url: "https://invent.kde.org/qt/qt/qt5.git"
-    commit: "0825fcb14dc8171eb3674d8df2337a2e4593f025"
+    commit: "b966a9ddb282501e772dd6aad66a7b8cb1d6559a"
 
 patches:
-  "5.15.17-2025.06.07":
+  "5.15.18-2026.01.04":
     - "base_path": "qt5/qtwebengine/src/3rdparty"
       "patch_file": "patches/Remove_visitedlink_writer_assert.patch"
       # Qt WebEngine debug builds assert immediately after starting Overte.
