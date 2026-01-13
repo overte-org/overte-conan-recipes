@@ -2,6 +2,9 @@ sources:
   22.21.1:
     sha256: 4b5ad1795fb6adfb1862df9a626bdca85185866fcd7d0313e87a347eec293fd8
     url: https://github.com/nodejs/node/archive/refs/tags/v22.21.1.tar.gz
+  22.22.0:
+    sha256: b7f40aadbf71df0d78a2239f593e4f14bf2f129fd9c5643f024c68ec1b48a854
+    url: https://github.com/nodejs/node/archive/refs/tags/v22.22.0.tar.gz
 patches:
 # Example patch:
   18.20.8:  # version as specified in `sources` above.
