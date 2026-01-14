@@ -63,7 +63,7 @@ class libnodeConan(ConanFile):
             # self.requires("llhttp/[^9.3]")
             # self.requires("libnghttp2/[>1.50 <1.60]")
             # self.requires("libuv/[>1.40 <1.50]")
-            self.requires("openssl/1.1.1w")
+            self.requires("openssl/1.1.1w", headers=True, libs=True, transitive_libs=True)
             self.requires("zlib/[>=1.3 <1.4]")
 
     def export_sources(self):
