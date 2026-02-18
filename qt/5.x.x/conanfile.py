@@ -503,17 +503,16 @@ class QtConan(ConanFile):
         git = Git(self, folder="qt5")
         os.mkdir("qt5")
         # Since we patch newlines later, we require the system to use the same newline characters we expect.
-        # On Windows, we have Git convert newlines to the Windows specific characters, which is the default set by Git's Windows installer.
-        # Later, we match against Python's `os.linesep` to match the operating specific newlines.
-        git.run("-c core.autocrlf=true clone " + self.conan_data["sources"][self.version]["url"] + " .")
-        git.run("-c core.autocrlf=true checkout " + self.conan_data["sources"][self.version]["commit"])
-        git.run("-c core.autocrlf=true submodule update --init --recursive")
+        # On Windows, we forbid Git to convert newlines to the Windows specific characters, which would be the default set by Git's Windows installer.
+        git.run("-c core.autocrlf=false clone " + self.conan_data["sources"][self.version]["url"] + " .")
+        git.run("-c core.autocrlf=false checkout " + self.conan_data["sources"][self.version]["commit"])
+        git.run("-c core.autocrlf=false submodule update --init --recursive")
 
         apply_conandata_patches(self)
         for f in ["renderer", os.path.join("renderer", "core"), os.path.join("renderer", "platform")]:
             replace_in_file(self, os.path.join(self.source_folder, "qt5", "qtwebengine", "src", "3rdparty", "chromium", "third_party", "blink", f, "BUILD.gn"),
-                "  if (enable_precompiled_headers) {" + os.linesep + "    if (is_win) {",
-                "  if (enable_precompiled_headers) {" + os.linesep + "    if (false) {"
+                "  if (enable_precompiled_headers) {\n    if (is_win) {",
+                "  if (enable_precompiled_headers) {\n    if (false) {"
             )
         replace_in_file(self, os.path.join(self.source_folder, "qt5", "qtbase", "configure.json"),
             "-ldbus-1d",
@@ -802,8 +801,11 @@ class QtConan(ConanFile):
             if self.settings.arch == "armv8":
                 args.append('QMAKE_APPLE_DEVICE_ARCHS="arm64"')
         elif self.settings.os == "Android":
+            args += [f"-android-ndk {self.conf.get('tools.android:ndk_path')}"]
             args += [f"-android-ndk-platform android-{self.settings.os.api_level}"]
             args += [f"-android-abis {android_abi(self)}"]
+            args += ["-android-javac-target 8"]  # Android SDK 33 doesn't support Java 7 anymore.
+            args += ["-android-javac-source 8"]
 
         if self.settings.get_safe("compiler.libcxx") == "libstdc++":
             args += ["-D_GLIBCXX_USE_CXX11_ABI=0"]
