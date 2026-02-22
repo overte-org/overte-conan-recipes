@@ -13,3 +13,18 @@ patches:
     - "base_path": "qt5/qtdeclarative"
       "patch_file": "patches/Fix-error-uintptr_t-does-not-name-a-type-in-QtDeclarative.patch"
       # Fixes building with modern versions of Clang
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/Add_missing_include_Perfetto.patch"
+      # Adds missing includes for GCC 15.
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/Add_missing_include_Chromium.patch"
+      # Adds missing includes for GCC 15.
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/Add_missing_include_WebRTC.patch"
+      # Adds missing includes for GCC 15.
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/Add_missing_include_Woff2.patch"
+      # Adds missing include for GCC 15.
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/Add_missing_include_Pdfium.patch"
+      # Adds missing include for GCC 15.

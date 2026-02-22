@@ -1,0 +1,98 @@
+diff --git a/chromium/third_party/webrtc/api/task_queue/task_queue_base.h b/chromium/third_party/webrtc/api/task_queue/task_queue_base.h
+index 90b1efd31eb..7403ee971e3 100644
+--- a/chromium/third_party/webrtc/api/task_queue/task_queue_base.h
++++ b/chromium/third_party/webrtc/api/task_queue/task_queue_base.h
+@@ -11,6 +11,7 @@
+ #define API_TASK_QUEUE_TASK_QUEUE_BASE_H_
+ 
+ #include <memory>
++#include <cstdint>
+ 
+ #include "api/task_queue/queued_task.h"
+ #include "rtc_base/system/rtc_export.h"
+diff --git a/chromium/third_party/webrtc/common_video/h264/pps_parser.h b/chromium/third_party/webrtc/common_video/h264/pps_parser.h
+index d6c31b06887..d02f544eecc 100644
+--- a/chromium/third_party/webrtc/common_video/h264/pps_parser.h
++++ b/chromium/third_party/webrtc/common_video/h264/pps_parser.h
+@@ -11,6 +11,8 @@
+ #ifndef COMMON_VIDEO_H264_PPS_PARSER_H_
+ #define COMMON_VIDEO_H264_PPS_PARSER_H_
+ 
++#include <cstdint>
++
+ #include "absl/types/optional.h"
+ 
+ namespace rtc {
+diff --git a/chromium/third_party/webrtc/common_video/h264/sps_parser.h b/chromium/third_party/webrtc/common_video/h264/sps_parser.h
+index 76e627d27a3..0c0937eb227 100644
+--- a/chromium/third_party/webrtc/common_video/h264/sps_parser.h
++++ b/chromium/third_party/webrtc/common_video/h264/sps_parser.h
+@@ -11,6 +11,8 @@
+ #ifndef COMMON_VIDEO_H264_SPS_PARSER_H_
+ #define COMMON_VIDEO_H264_SPS_PARSER_H_
+ 
++#include <cstdint>
++
+ #include "absl/types/optional.h"
+ 
+ namespace rtc {
+diff --git a/chromium/third_party/webrtc/api/fec_controller.h b/chromium/third_party/webrtc/api/fec_controller.h
+index 3e5f7bb2168..9707866661d 100644
+--- a/chromium/third_party/webrtc/api/fec_controller.h
++++ b/chromium/third_party/webrtc/api/fec_controller.h
+@@ -13,6 +13,7 @@
+ 
+ #include <memory>
+ #include <vector>
++#include <cstdint>
+ 
+ #include "api/video/video_frame_type.h"
+ #include "modules/include/module_fec_types.h"
+diff --git a/chromium/third_party/webrtc/modules/include/module_common_types_public.h b/chromium/third_party/webrtc/modules/include/module_common_types_public.h
+index 345e45ce127..e686e5d691a 100644
+--- a/chromium/third_party/webrtc/modules/include/module_common_types_public.h
++++ b/chromium/third_party/webrtc/modules/include/module_common_types_public.h
+@@ -12,6 +12,7 @@
+ #define MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_
+ 
+ #include <limits>
++#include <cstdint>
+ 
+ #include "absl/types/optional.h"
+ 
+diff --git a/chromium/third_party/webrtc/modules/video_coding/timestamp_map.h b/chromium/third_party/webrtc/modules/video_coding/timestamp_map.h
+index c85666c9aa0..b4361ed7a4c 100644
+--- a/chromium/third_party/webrtc/modules/video_coding/timestamp_map.h
++++ b/chromium/third_party/webrtc/modules/video_coding/timestamp_map.h
+@@ -12,6 +12,7 @@
+ #define MODULES_VIDEO_CODING_TIMESTAMP_MAP_H_
+ 
+ #include <memory>
++#include <cstdint>
+ 
+ namespace webrtc {
+ 
+diff --git a/chromium/third_party/webrtc/api/network_state_predictor.h b/chromium/third_party/webrtc/api/network_state_predictor.h
+index 9cf5ab6f022..c7e2fee5997 100644
+--- a/chromium/third_party/webrtc/api/network_state_predictor.h
++++ b/chromium/third_party/webrtc/api/network_state_predictor.h
+@@ -13,6 +13,7 @@
+ 
+ #include <memory>
+ #include <vector>
++#include <cstdint>
+ 
+ namespace webrtc {
+ 
+diff --git a/chromium/third_party/webrtc/video/stats_counter.h b/chromium/third_party/webrtc/video/stats_counter.h
+index fb6017f415f..9313bdf16f9 100644
+--- a/chromium/third_party/webrtc/video/stats_counter.h
++++ b/chromium/third_party/webrtc/video/stats_counter.h
+@@ -13,6 +13,7 @@
+ 
+ #include <memory>
+ #include <string>
++#include <cstdint>
+ 
+ #include "rtc_base/constructor_magic.h"
+ 

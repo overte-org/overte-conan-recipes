@@ -1,0 +1,84 @@
+diff --git a/chromium/base/task/thread_pool.h b/chromium/base/task/thread_pool.h
+index 085c249ba58..28cefc5ce6c 100644
+--- a/chromium/base/task/thread_pool.h
++++ b/chromium/base/task/thread_pool.h
+@@ -7,6 +7,7 @@
+ 
+ #include <memory>
+ #include <utility>
++#include <cstdint>
+ 
+ namespace base {
+ // TODO(gab): thread_pool.h should include task_traits.h but it can't during the
+diff --git a/chromium/base/trace_event/trace_arguments.h b/chromium/base/trace_event/trace_arguments.h
+index ca8af5b5d13..f9e07d0eecc 100644
+--- a/chromium/base/trace_event/trace_arguments.h
++++ b/chromium/base/trace_event/trace_arguments.h
+@@ -11,6 +11,7 @@
+ #include <algorithm>
+ #include <memory>
+ #include <string>
++#include <cstdint>
+ 
+ #include "base/base_export.h"
+ #include "base/macros.h"
+diff --git a/chromium/net/tools/huffman_trie/trie_entry.h b/chromium/net/tools/huffman_trie/trie_entry.h
+index fe70260f981..3239da020ec 100644
+--- a/chromium/net/tools/huffman_trie/trie_entry.h
++++ b/chromium/net/tools/huffman_trie/trie_entry.h
+@@ -8,6 +8,7 @@
+ #include <memory>
+ #include <string>
+ #include <vector>
++#include <cstdint>
+ 
+ namespace net {
+ 
+diff --git a/chromium/gpu/command_buffer/common/skia_utils.h b/chromium/gpu/command_buffer/common/skia_utils.h
+index 6508d79a1d4..706ac943d5f 100644
+--- a/chromium/gpu/command_buffer/common/skia_utils.h
++++ b/chromium/gpu/command_buffer/common/skia_utils.h
+@@ -6,6 +6,7 @@
+ #define GPU_COMMAND_BUFFER_COMMON_SKIA_UTILS_H_
+ 
+ #include <memory>
++#include <cstdint>
+ 
+ #include "base/optional.h"
+ #include "gpu/raster_export.h"
+diff --git a/chromium/cc/input/main_thread_scrolling_reason.h b/chromium/cc/input/main_thread_scrolling_reason.h
+index 4ddd536afcc..dc1bc072790 100644
+--- a/chromium/cc/input/main_thread_scrolling_reason.h
++++ b/chromium/cc/input/main_thread_scrolling_reason.h
+@@ -7,6 +7,7 @@
+ 
+ #include <memory>
+ #include <string>
++#include <cstdint>
+ #include "cc/cc_export.h"
+ 
+ namespace base {
+diff --git a/chromium/cc/metrics/dropped_frame_counter.h b/chromium/cc/metrics/dropped_frame_counter.h
+index f1c3f5e97a4..649077a33ef 100644
+--- a/chromium/cc/metrics/dropped_frame_counter.h
++++ b/chromium/cc/metrics/dropped_frame_counter.h
+@@ -8,6 +8,7 @@
+ #include <stddef.h>
+ 
+ #include <memory>
++#include <cstdint>
+ 
+ #include "base/containers/ring_buffer.h"
+ #include "cc/cc_export.h"
+diff --git a/chromium/gpu/command_buffer/service/gpu_fence_manager.h b/chromium/gpu/command_buffer/service/gpu_fence_manager.h
+index ee50d6fddd1..dafbb6e3251 100644
+--- a/chromium/gpu/command_buffer/service/gpu_fence_manager.h
++++ b/chromium/gpu/command_buffer/service/gpu_fence_manager.h
+@@ -7,6 +7,7 @@
+ 
+ #include <memory>
+ #include <vector>
++#include <cstdint>
+ 
+ #include "base/containers/flat_map.h"
+ #include "base/macros.h"
