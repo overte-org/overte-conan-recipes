@@ -28,3 +28,9 @@ patches:
     - "base_path": "qt5/qtwebengine/src/3rdparty"
       "patch_file": "patches/Add_missing_include_Pdfium.patch"
       # Adds missing include for GCC 15.
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/CVE-2025-6558_Chromium.patch"
+      # Fixes CVE-2025-6558
+    - "base_path": "qt5/qtwebengine/src/3rdparty"
+      "patch_file": "patches/CVE-2025-6558_ANGLE.patch"
+      # Fixes CVE-2025-6558
