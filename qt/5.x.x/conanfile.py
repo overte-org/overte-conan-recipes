@@ -393,7 +393,7 @@ class QtConan(ConanFile):
         if self.options.openssl:
             self.requires("openssl/[>=1.1 <4]")
         if self.options.with_pcre2:
-            self.requires("pcre2/10.44")
+            self.requires("pcre2/10.42") # Same version as what glib depends on.
         if self.options.get_safe("with_vulkan"):
             self.requires("vulkan-loader/1.3.268.0")
             if is_apple_os(self):
@@ -405,7 +405,7 @@ class QtConan(ConanFile):
         if self.options.with_doubleconversion and not self.options.multiconfiguration:
             self.requires("double-conversion/3.3.0")
         if self.options.get_safe("with_freetype", False) and not self.options.multiconfiguration:
-            self.requires("freetype/2.13.3")
+            self.requires("freetype/2.13.3", force=True)  # fontconfig 2.15.0 depends on an older maintenance release.
         if self.options.get_safe("with_fontconfig", False):
             self.requires("fontconfig/2.15.0")
         if self.options.get_safe("with_icu", False):
@@ -446,7 +446,7 @@ class QtConan(ConanFile):
             if not self.options.qtwayland:
                 self.requires("xorg-proto/2022.2")
             self.requires("libxshmfence/1.3.2")
-            self.requires("nss/3.107@overte/stable")
+            self.requires("nss/3.119")  # NSS 3.x is backwards and forwards compatible.
             self.requires("libdrm/2.4.120")
             self.requires("egl/system")
         if self.options.get_safe("with_gstreamer", False):

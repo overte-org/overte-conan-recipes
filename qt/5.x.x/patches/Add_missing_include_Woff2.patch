@@ -1,0 +1,12 @@
+diff --git a/chromium/third_party/woff2/include/woff2/output.h b/chromium/third_party/woff2/include/woff2/output.h
+index c325f67be72..f56293342f6 100644
+--- a/chromium/third_party/woff2/include/woff2/output.h
++++ b/chromium/third_party/woff2/include/woff2/output.h
+@@ -13,6 +13,7 @@
+ #include <cstring>
+ #include <memory>
+ #include <string>
++#include <cstdint>
+ 
+ namespace woff2 {
+ 
