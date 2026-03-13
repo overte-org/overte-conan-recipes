@@ -395,9 +395,9 @@ class QtConan(ConanFile):
         if self.options.with_pcre2:
             self.requires("pcre2/10.42") # Same version as what glib depends on.
         if self.options.get_safe("with_vulkan"):
-            self.requires("vulkan-loader/1.3.268.0")
+            self.requires("vulkan-loader/1.4.313.0")  # Same version as required by MoltenVK
             if is_apple_os(self):
-                self.requires("moltenvk/1.2.2")
+                self.requires("moltenvk/1.3.0")  # Same version as required by Overte
         if self.options.with_glib:
             self.requires("glib/2.78.3")
         # if self.options.with_libiconv: # QTBUG-84708
