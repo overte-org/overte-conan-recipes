@@ -1,0 +1,17 @@
+diff --git a/src/nvmath/Matrix.cpp b/src/nvmath/Matrix.cpp
+index 75429e5..4d5b17a 100644
+--- a/src/nvmath/Matrix.cpp
++++ b/src/nvmath/Matrix.cpp
+@@ -8,8 +8,12 @@
+ #include <float.h>
+ 
+ #if !NV_CC_MSVC && !NV_OS_ORBIS
++#if defined(__FreeBSD__)
++#include <stdlib.h>
++#else
+ #include <alloca.h>
+ #endif
++#endif
+ 
+ using namespace nv;
+ 
