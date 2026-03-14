@@ -6,9 +6,10 @@ sources:
     sha256: b7f40aadbf71df0d78a2239f593e4f14bf2f129fd9c5643f024c68ec1b48a854
     url: https://github.com/nodejs/node/archive/refs/tags/v22.22.0.tar.gz
 patches:
-# Example patch:
-  18.20.8:  # version as specified in `sources` above.
-    - "patch_file": "patches/example.patch"  # Relative path to patch file.
+  22.22.0:
+    - "patch_file": "patches/freebsd-is-trivially-copyable.patch"
+      "patch_source": "https://github.com/rubyjs/libv8-node/pull/57"
+      "patch_description": "Workaround for assertion errors with CLang, which is required on FreeBSD"
 
 # Conan Center prefers patches to:
 # - have relatively specific names. E.g. `fix_v8_on_VS2022_v17.14_6.8.x.diff`.
