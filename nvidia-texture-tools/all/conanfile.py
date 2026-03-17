@@ -25,7 +25,7 @@ class NTTConan(ConanFile):
         tc.variables["BUILD_TESTS"] = "OFF"
         tc.variables["BUILD_TOOLS"] = "OFF"
         tc.variables["USE_CUDA"] = "OFF"
-        if self.settings.os == "Linux":
+        if self.settings.os in ["Linux", "FreeBSD"]:
             tc.variables["CMAKE_CXX_FLAGS"] = "-fPIC"
         tc.generate()
 

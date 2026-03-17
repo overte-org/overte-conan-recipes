@@ -6,3 +6,5 @@ patches:
   "2023.01":
     - "base_path": "."
       "patch_file": "patches/get_rid_of_link_time_code_generation.patch"
+    - "base_path": "."
+      "patch_file": "patches/freebsd_alloca_header.patch"
