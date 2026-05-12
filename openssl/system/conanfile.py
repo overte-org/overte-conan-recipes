@@ -10,6 +10,7 @@ class SysConfigOpenSSLConan(ConanFile):
     package_type = "shared-library"
     settings = "os", "arch", "compiler", "build_type"
     options = {
+        "shared": [True, False],
         "no_des": [True, False],
     }
 
