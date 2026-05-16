@@ -37,7 +37,7 @@ class WAPConan(ConanFile):
         self.requires("abseil/20250127.0")
 
     def build_requirements(self):
-        self.tool_requires("meson/1.6.0")
+        self.tool_requires("meson/1.9.1")
         if not self.conf.get("tools.gnu:pkg_config", check_type=str):
             self.tool_requires("pkgconf/2.2.0")
 
