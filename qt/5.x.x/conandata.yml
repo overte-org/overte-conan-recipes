@@ -1,10 +1,12 @@
 sources:
-  "5.15.18-2026.01.04":
+  # Qt package version numbers need to be the same as Qt's own version number for the private includes to work.
+  "5.15.18":
     url: "https://invent.kde.org/qt/qt/qt5.git"
     commit: "b966a9ddb282501e772dd6aad66a7b8cb1d6559a"
+    # Commit from 2026.01.04
 
 patches:
-  "5.15.18-2026.01.04":
+  "5.15.18":
     - "base_path": "qt5/qtwebengine/src/3rdparty"
       "patch_file": "patches/Remove_visitedlink_writer_assert.patch"
       # Qt WebEngine debug builds assert immediately after starting Overte.
@@ -37,4 +39,43 @@ patches:
     - "base_path": "qt5/qtwebengine/src/3rdparty"
       "patch_file": "patches/0001-Find-fontconfig-using-pkg-config.patch"
       # Fixes QtWebengine failing to find fontconfig on Linux.
+    - "base_path": "qt5/qtlocation/src/3rdparty/mapbox-gl-native"
+      "patch_file": "patches/Fix_boost_on_Clang_16.patch"
+      # Fixes building on Clang 16.
+    - "base_path": "qt5/qtlocation"
+      "patch_file": "patches/Fix_qtlocation_mbgl_on_Clang.patch"
+      # Fixes building on Clang. https://bugs.gentoo.org/936486#c4
+      # Error message: qtlocation/src/3rdparty/mapbox-gl-native/src/mbgl/layout/symbol_projection.cpp:98:95: error: non-constant-expression cannot be narrowed from type 'value_type' (aka 'double') to 'float' in initializer list [-Wc++11-narrowing-const-reference]
+    - "base_path": "qt5/qtbase"
+      "patch_file": "patches/Bump_macOS_deployment_target.patch"
+      # Bump macOS deployment target to allow building with Vulkan support.
+      # vulka83940be63d03e/p/include/vulkan/vulkan_metal.h:82:12: error: 'MTLSharedEvent' is only available on macOS 10.14 or newer [-Werror,-Wunguarded-availability-new]
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/5.15.14-macos-qtwebengine-rpath-link.patch"
+      # Don't use rpath-link on macOS.
 
+    # MacPorts patches https://github.com/macports/macports-ports/tree/master/aqua/qt5/files
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine-patch-zlib.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine-src_3rdparty_chromium_third__party_perfetto_include_perfetto_tracing_internal_track__event__data__source.h.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine-libpng.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine-chromium-freetype-gzip.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine-crc32c-arm64.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine-src_3rdparty_chromium_third__party_blink_renderer_platform_wtf_hash__table.h.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtwebengine"
+      "patch_file": "patches/patch-qtwebengine_v8_build.gn_error.diff"
+      # Fixes building on macOS 15.6.
+    - "base_path": "qt5/qtbase"
+      "patch_file": "patches/patch-qtbase-tahoe-no-agl-framework.diff"
+      # Fixes building with OpenGL support on macOS.
