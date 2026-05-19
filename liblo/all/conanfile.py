@@ -18,10 +18,10 @@ class libloConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.variables["WITH_TOOLS"] = "OFF"
-        tc.variables["WITH_TESTS"] = "OFF"
-        tc.variables["WITH_EXAMPLES"] = "OFF"
-        tc.variables["WITH_CPP_TESTS"] = "OFF"
+        tc.cache_variables["WITH_TOOLS"] = "OFF"
+        tc.cache_variables["WITH_TESTS"] = "OFF"
+        tc.cache_variables["WITH_EXAMPLES"] = "OFF"
+        tc.cache_variables["WITH_CPP_TESTS"] = "OFF"
         tc.generate()
 
     def build(self):
