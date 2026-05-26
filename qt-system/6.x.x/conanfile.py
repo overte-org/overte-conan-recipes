@@ -7,7 +7,7 @@ from conan.tools.system import package_manager
 
 class QtSystemConan(ConanFile):
     name = "qt"
-    version = "6"
+    version = "6.x"
     author = "Julian Groß julian.gro@overte.org & Edgar Edgar@AnotherFoxGuy.com"
     settings = "os", "arch"
     options = {
@@ -33,15 +33,13 @@ class QtSystemConan(ConanFile):
                 "qt6-webengine-dev",
                 "qt6-webengine-dev-tools",
                 "qt6-multimedia-dev",
-                # "libqt5multimedia5-plugins", # Probably obsolete
+                "libqt6multimedia6", # For audio backend.
                 "qt6-image-formats-plugins", # Support for WebP textures among others
                 "fcitx5-frontend-qt6", # Support for Fcitx IME (Japanese and other input). Required is `libfcitxplatforminputcontextplugin.so`
-                #"libqt5opengl5-dev", # No replacement package?
+                "libqt6opengl6-dev",
                 "qt6-webchannel-dev",
                 "qt6-websockets-dev",
-                #"qtxmlpatterns5-dev-tools",
                 "qt6-tools-dev",
-                #"libqt5xmlpatterns5-dev",
                 "qt6-svg-dev",
                 "qt6-5compat-dev", # Required by Quazip, and probably us.
                 "qml-module-qtwebchannel",
