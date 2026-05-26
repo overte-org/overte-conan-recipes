@@ -31,8 +31,8 @@ class AqtConan(ConanFile):
     def package(self):
         glob_args = "-O {0} -m {1}".format(self.source_folder, self.options.modules)
 
-        self.run("aqt install-qt windows desktop {0} win64_msvc2019_64 {1}".format(self.version, glob_args))
-        src_dir = os.path.join(self.source_folder, self.version, "msvc2019_64")
+        self.run("aqt install-qt windows desktop {0} win64_msvc2022_64 {1}".format(self.version, glob_args))
+        src_dir = os.path.join(self.source_folder, self.version, "msvc2022_64")
         file_names = os.listdir(src_dir)
         for file_name in file_names:
             shutil.move(os.path.join(src_dir, file_name), self.package_folder)
