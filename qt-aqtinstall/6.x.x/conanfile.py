@@ -18,7 +18,7 @@ class AqtConan(ConanFile):
         "modules": ["ANY"],
     }
     default_options = {
-        "modules": "qtwebengine",
+        "modules": "qtmultimedia qtpositioning qtwebchannel qtwebengine qtwebsockets qt5compat",
     }
 
     def source(self):
