@@ -42,6 +42,7 @@ class QtSystemConan(ConanFile):
                 "qtxmlpatterns5-dev-tools",
                 "qttools5-dev",
                 "libqt5xmlpatterns5-dev",
+                "libqt5x11extras5-dev", # For gpu-frame-player
                 "libqt5svg5-dev",
                 "qml-module-qtwebchannel",
                 "qml-module-qtquick-controls",
