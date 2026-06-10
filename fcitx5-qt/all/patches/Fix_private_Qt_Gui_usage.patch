@@ -1,0 +1,15 @@
+# fcitx5-qt/qt5/platforminputcontext/main.h uses `QPlatformInputContextFactoryInterface_iid` which is private in Qt Gui.
+# On most systems, just having the private headers installed is enough; When building with a Conan Qt source package it will behave as if it isn't installed without explicitly targetting it.
+# This is the way it behaves otherwise: https://github.com/fcitx/fcitx5-qt/issues/2#issuecomment-550573433
+diff --git a/qt5/platforminputcontext/CMakeLists.txt b/qt5/platforminputcontext/CMakeLists.txt
+index c461f4e..b4b16fe 100644
+--- a/qt5/platforminputcontext/CMakeLists.txt
++++ b/qt5/platforminputcontext/CMakeLists.txt
+@@ -42,6 +42,7 @@ endif()
+ target_link_libraries(fcitx5platforminputcontextplugin
+                           Qt5::Core
+                           Qt5::Gui
++                          Qt5::GuiPrivate
+                           Qt5::DBus
+                           Qt5::Widgets
+                           Fcitx5Qt5::DBusAddons
