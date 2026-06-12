@@ -27,6 +27,7 @@ class NTTConan(ConanFile):
         tc.variables["USE_CUDA"] = "OFF"
         if self.settings.os in ["Linux", "FreeBSD"]:
             tc.variables["CMAKE_CXX_FLAGS"] = "-fPIC"
+        tc.cache_variables["CMAKE_POLICY_VERSION_MINIMUM"] = "3.5" # CMake 4 support
         tc.generate()
 
     def build(self):
