@@ -230,6 +230,14 @@ class libnodeConan(ConanFile):
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False
             )
+            # On macOS v8 isn't part of libnode.dylib, but is contained in surrounding .a files.
+            copy(
+                self,
+                "*.a",
+                os.path.join(self.source_folder, "out", str(self.settings.build_type)),
+                os.path.join(self.package_folder, "lib"),
+                keep_path=False
+            )
 
     def package_info(self):
         self.cpp_info.includedirs = ["include", "include/node"]
