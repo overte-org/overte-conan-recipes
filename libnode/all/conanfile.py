@@ -22,6 +22,13 @@ class libnodeConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     package_type = "shared-library"
 
+    # Node only supports building Release or Debug, no RelWithDebInfo
+    def __make_build_type(self):
+        if self.settings.build_type == "Debug":
+            return "Debug"
+        else:
+            return "Release"
+
     @property
     def _min_cppstd(self):
         if Version(self.version) >= "22":
@@ -132,7 +139,6 @@ class libnodeConan(ConanFile):
         args += self.__add_shared("openssl", "openssl")
         args += self.__add_shared("zlib", "zlib")
 
-        # Setting --debug on RelWithDebInfo causes missing includes in base64 and uvwasi.
         args.append("--debug" if self.settings.build_type == "Debug" else "")
         if self.settings.arch == "armv8":
             args.append("--dest-cpu=arm64")
@@ -155,7 +161,7 @@ class libnodeConan(ConanFile):
                 "python3 configure.py %s" % (" ".join(args)), env=["node_build_env"]
             )
             autotools = Autotools(self)
-            autotools.make(args=["-C out", "BUILDTYPE=%s" % self.settings.build_type], target="libnode")
+            autotools.make(args=["-C out", "BUILDTYPE=%s" % self.__make_build_type()], target="libnode")
 
     def package(self):
         if self.settings.os == "Windows":
@@ -182,7 +188,7 @@ class libnodeConan(ConanFile):
             copy(
                 self,
                 "libnode.lib",
-                os.path.join(self.source_folder, "out", str(self.settings.build_type)),
+                os.path.join(self.source_folder, "out", self.__make_build_type()),
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False,
             )
@@ -190,7 +196,7 @@ class libnodeConan(ConanFile):
                 self,
                 "v8_libplatform.lib",
                 os.path.join(
-                    self.source_folder, "out", str(self.settings.build_type), "lib"
+                    self.source_folder, "out", self.__make_build_type(), "lib"
                 ),
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False,
@@ -226,7 +232,7 @@ class libnodeConan(ConanFile):
             copy(
                 self,
                 "libnode.*",
-                os.path.join(self.source_folder, "out", str(self.settings.build_type)),
+                os.path.join(self.source_folder, "out", self.__make_build_type()),
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False
             )
@@ -234,7 +240,7 @@ class libnodeConan(ConanFile):
             copy(
                 self,
                 "*.a",
-                os.path.join(self.source_folder, "out", str(self.settings.build_type)),
+                os.path.join(self.source_folder, "out", self.__make_build_type()),
                 os.path.join(self.package_folder, "lib"),
                 keep_path=False
             )
