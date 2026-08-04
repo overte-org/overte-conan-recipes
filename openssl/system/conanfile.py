@@ -48,4 +48,7 @@ class SysConfigOpenSSLConan(ConanFile):
         elif self.settings.os in ["Linux", "FreeBSD"]:
             pkg_config = PkgConfig(self, 'openssl')
             pkg_config.fill_cpp_info(self.cpp_info, is_system=True)
-
+            if pkg_config.libs != ['ssl', 'crypto']:
+                # Sometimes we cannot find `ssl`, so do this sanity check here.
+                # See: https://github.com/overte-org/overte-conan-recipes/issues/1
+                self.output.warning(f"We expected ['ssl', 'crypto'] but got {pkg_config.libs}")
