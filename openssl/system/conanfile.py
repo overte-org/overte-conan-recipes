@@ -34,9 +34,6 @@ class SysConfigOpenSSLConan(ConanFile):
         pacman.install(["openssl"], check=True)
 
     def package_info(self):
-        self.cpp_info.filenames["cmake_find_package"] = "openssl_system"
-        self.cpp_info.filenames["cmake_find_package_multi"] = "openssl_system"
-
         self.cpp_info.set_property("cmake_file_name", "openssl_system")
 
         self.cpp_info.bindirs = []
