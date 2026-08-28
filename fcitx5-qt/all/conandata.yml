@@ -1,0 +1,7 @@
+sources:
+  5.1.13:
+    url: "https://github.com/fcitx/fcitx5-qt/archive/refs/tags/5.1.13.tar.gz"
+    sha256: "74b2c43ca865ec9ede257bcd3bdadafc20f571900cb2440a4488335e4d4e91cc"
+patches:
+  5.1.13:
+    - "patch_file": "patches/Fix_private_Qt_Gui_usage.patch"
