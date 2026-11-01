@@ -1,9 +1,9 @@
 sources:
-  22.23.1:
-    sha256: 081eb03e8dbb4bdc16f10a9c549bcb8d70e97d4ca9fb161cf51707478a30d5d9
-    url: https://github.com/nodejs/node/archive/refs/tags/v22.23.1.tar.gz
+  22.23.4:
+    sha256: 06e6ffeeb91a6960fedf41b69d73b7aa55820803a27e8698e48f17b87c175cb8
+    url: https://github.com/nodejs/node/archive/refs/tags/v22.23.4.tar.gz
 patches:
-  22.23.1:
+  22.23.4:
     - "patch_file": "patches/freebsd-is-trivially-copyable.patch"
       "patch_source": "https://github.com/rubyjs/libv8-node/pull/57"
       "patch_description": "Workaround for assertion errors with Clang, which is required on FreeBSD"
