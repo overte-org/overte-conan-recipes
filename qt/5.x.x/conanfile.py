@@ -444,7 +444,7 @@ class QtConan(ConanFile):
             self.requires("expat/[>=2.6.3 <3]")
             self.requires("opus/1.5.2")
             if not self.options.qtwayland:
-                self.requires("xorg-proto/2022.2")
+                self.requires("xorg-proto/2024.1")
             self.requires("libxshmfence/1.3.2")
             self.requires("nss/3.119")  # NSS 3.x is backwards and forwards compatible.
             self.requires("libdrm/2.4.120")
